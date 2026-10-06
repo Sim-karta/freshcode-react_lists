@@ -3,21 +3,26 @@ import Button from "../../../shared/ui/Button/Button";
 import styles from "./NewsCard.module.scss";
 
 const NewsCard = (props) => {
-    const { news, isFirst = false, onLike, onDelete } = props;
+    const {
+        id,
+        news,
+        isFirst = false,
+        isActive,
+        onClick,
+        onLike,
+        onDelete,
+    } = props;
 
-    const [isActive, setIsActive] = useState(false);
     const [isLiked, setIsLiked] = useState(false);
-
-    const onClick = useCallback(() => {
-        setIsActive(!isActive);
-    }, [isActive]);
 
     const title = isFirst ? news.title : `${news.title.slice(0, 30)}...`;
 
     return (
         <article
             className={`${styles.newsCard} ${isActive ? styles.isActive : ""}`}
-            onClick={onClick}
+            onClick={() => {
+                onClick(id);
+            }}
         >
             <div className={styles.newsCard__header}>
                 <img
