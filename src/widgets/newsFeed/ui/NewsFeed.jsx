@@ -7,7 +7,13 @@ const NewsFeed = () => {
         <>
             <ul className={styles.newsList}>
                 {newsList.map((news, index) => {
-                    return <NewsCard news={news} isFirst={index === 0} />;
+                    return (
+                        <NewsCard
+                            key={news.title}
+                            news={news}
+                            isFirst={index === 0}
+                        />
+                    );
                 })}
             </ul>
         </>
