@@ -1,5 +1,7 @@
+import NewsFeed from "../../../widgets/newsFeed/ui/NewsFeed";
+
 function HomePage() {
-    return null;
+    return <NewsFeed />;
 }
 
 export default HomePage;
