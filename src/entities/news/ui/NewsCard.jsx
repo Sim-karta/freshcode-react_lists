@@ -1,17 +1,10 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import Button from "../../../shared/ui/Button/Button";
+import LikeNewsButton from "../../../features/likeNews/LikeNewsButton";
 import styles from "./NewsCard.module.scss";
 
 const NewsCard = (props) => {
-    const {
-        id,
-        news,
-        isFirst = false,
-        isActive,
-        onClick,
-        onLike,
-        onDelete,
-    } = props;
+    const { id, news, isFirst = false, isActive, onClick, onDelete } = props;
 
     const [isLiked, setIsLiked] = useState(false);
 
@@ -30,10 +23,10 @@ const NewsCard = (props) => {
                     src={news.headerBgSrc}
                     alt={news.title}
                 />
-                <Button
+                <LikeNewsButton
                     className={`${styles.newsCard__like} ${isLiked ? styles.isActive : ""}`}
                     ariaLabel={isLiked ? "Прибрати лайк" : "Поставити лайк"}
-                    onClick={onLike}
+                    setIsLike={setIsLiked}
                 >
                     <svg
                         viewBox="0 0 24 24"
@@ -50,7 +43,7 @@ const NewsCard = (props) => {
                             strokeLinejoin="round"
                         />
                     </svg>
-                </Button>
+                </LikeNewsButton>
                 <Button
                     className={styles.newsCard__delete}
                     aria-label="Видалити новину"
