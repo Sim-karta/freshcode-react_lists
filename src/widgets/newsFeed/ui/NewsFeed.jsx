@@ -4,27 +4,31 @@ import { newsList } from "../model/news-data";
 import styles from "./newsFeed.module.scss";
 
 const NewsFeed = () => {
+    const [newsItems, setNewsItems] = useState(newsList);
     const [activeCard, setActiveCard] = useState(null);
 
-    const onClick = useCallback(
-        (index) => {
-            setActiveCard(index);
-        },
-        [activeCard],
-    );
+    const onClick = useCallback((id) => {
+        setActiveCard(id);
+    }, []);
+
+    const onDelete = useCallback((id) => {
+        setNewsItems((items) => items.filter((news) => news.title !== id));
+        setActiveCard((current) => (current === id ? null : current));
+    }, []);
 
     return (
         <>
             <ul className={styles.newsList}>
-                {newsList.map((news, index) => {
+                {newsItems.map((news, index) => {
                     return (
                         <NewsCard
-                            key={index}
-                            id={index}
+                            key={news.title}
+                            id={news.title}
                             news={news}
                             isFirst={index === 0}
-                            isActive={index === activeCard}
+                            isActive={news.title === activeCard}
                             onClick={onClick}
+                            onDelete={onDelete}
                         />
                     );
                 })}

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Button from "../../../shared/ui/Button/Button";
 import LikeNewsButton from "../../../features/likeNews/LikeNewsButton";
 import styles from "./NewsCard.module.scss";
+import DeleteNewsButton from "../../../features/deleteNews/ui/DeleteNewsButton";
 
 const NewsCard = (props) => {
     const { id, news, isFirst = false, isActive, onClick, onDelete } = props;
@@ -44,10 +44,11 @@ const NewsCard = (props) => {
                         />
                     </svg>
                 </LikeNewsButton>
-                <Button
+                <DeleteNewsButton
                     className={styles.newsCard__delete}
                     aria-label="Видалити новину"
-                    onClick={onDelete}
+                    cardId={id}
+                    onDelete={onDelete}
                 >
                     <svg
                         viewBox="0 0 24 24"
@@ -64,7 +65,7 @@ const NewsCard = (props) => {
                             strokeLinejoin="round"
                         />
                     </svg>
-                </Button>
+                </DeleteNewsButton>
             </div>
             <div className={styles.newsCard__body}>
                 <h2 className={styles["newsCard__body-title"]}>{title}</h2>
