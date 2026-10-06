@@ -1,23 +1,21 @@
-import Button from "../../../shared/ui/Button/Button";
+import { useState } from "react";
+import LikeNewsButton from "../../../features/likeNews/LikeNewsButton";
 import styles from "./NewsCard.module.scss";
+import DeleteNewsButton from "../../../features/deleteNews/ui/DeleteNewsButton";
 
 const NewsCard = (props) => {
-    const {
-        news,
-        isFirst = false,
-        isActive = false,
-        isLiked = false,
-        onClick,
-        onLike,
-        onDelete,
-    } = props;
+    const { id, news, isFirst = false, isActive, onClick, onDelete } = props;
+
+    const [isLiked, setIsLiked] = useState(false);
 
     const title = isFirst ? news.title : `${news.title.slice(0, 30)}...`;
 
     return (
         <article
             className={`${styles.newsCard} ${isActive ? styles.isActive : ""}`}
-            onClick={onClick}
+            onClick={() => {
+                onClick(id);
+            }}
         >
             <div className={styles.newsCard__header}>
                 <img
@@ -25,10 +23,10 @@ const NewsCard = (props) => {
                     src={news.headerBgSrc}
                     alt={news.title}
                 />
-                <Button
+                <LikeNewsButton
                     className={`${styles.newsCard__like} ${isLiked ? styles.isActive : ""}`}
                     ariaLabel={isLiked ? "Прибрати лайк" : "Поставити лайк"}
-                    onClick={onLike}
+                    setIsLike={setIsLiked}
                 >
                     <svg
                         viewBox="0 0 24 24"
@@ -45,11 +43,12 @@ const NewsCard = (props) => {
                             strokeLinejoin="round"
                         />
                     </svg>
-                </Button>
-                <Button
+                </LikeNewsButton>
+                <DeleteNewsButton
                     className={styles.newsCard__delete}
                     aria-label="Видалити новину"
-                    onClick={onDelete}
+                    cardId={id}
+                    onDelete={onDelete}
                 >
                     <svg
                         viewBox="0 0 24 24"
@@ -66,7 +65,7 @@ const NewsCard = (props) => {
                             strokeLinejoin="round"
                         />
                     </svg>
-                </Button>
+                </DeleteNewsButton>
             </div>
             <div className={styles.newsCard__body}>
                 <h2 className={styles["newsCard__body-title"]}>{title}</h2>
