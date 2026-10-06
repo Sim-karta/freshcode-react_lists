@@ -1,4 +1,5 @@
 import Button from "../../../shared/ui/Button/Button";
+import styles from "./NewsCard.module.scss";
 
 const NewsCard = (props) => {
     const {
@@ -15,17 +16,17 @@ const NewsCard = (props) => {
 
     return (
         <article
-            className={`newsCard${isActive ? " is-active" : ""}`}
+            className={`${styles.newsCard} ${isActive ? styles.isActive : ""}`}
             onClick={onClick}
         >
-            <div className="newsCard__header">
+            <div className={styles.newsCard__header}>
                 <img
-                    className="newsCard__image"
+                    className={styles.newsCard__image}
                     src={news.headerBgSrc}
                     alt={news.title}
                 />
                 <Button
-                    className={`newsCard__like-btn${isLiked ? " is-active" : ""}`}
+                    className={`${styles.newsCard__like} ${isLiked ? styles.isActive : ""}`}
                     ariaLabel={isLiked ? "Прибрати лайк" : "Поставити лайк"}
                     onClick={onLike}
                 >
@@ -46,7 +47,7 @@ const NewsCard = (props) => {
                     </svg>
                 </Button>
                 <Button
-                    className="newsCard__delete-btn"
+                    className={styles.newsCard__delete}
                     aria-label="Видалити новину"
                     onClick={onDelete}
                 >
@@ -67,21 +68,21 @@ const NewsCard = (props) => {
                     </svg>
                 </Button>
             </div>
-            <div className="newsCard__body">
-                <h2 className="newsCard__body-title">{title}</h2>
-                <p className="newsCard__body-info">
+            <div className={styles.newsCard__body}>
+                <h2 className={styles["newsCard__body-title"]}>{title}</h2>
+                <p className={styles["newsCard__body-info"]}>
                     {isFirst ? news.body : ""}
                 </p>
             </div>
-            <div className="newsCard__footer">
-                <ul className="newsCard__tags">
+            <div className={styles.newsCard__footer}>
+                <ul className={styles.newsCard__tags}>
                     {news.category.map((tag) => (
-                        <li className="newsCard__tags-item" key={tag}>
+                        <li className={styles["newsCard__tags-item"]} key={tag}>
                             #{tag}
                         </li>
                     ))}
                 </ul>
-                <p className="newsCard__date">
+                <p className={styles.newsCard__date}>
                     <time dateTime={news.date}>{news.date}</time>
                 </p>
             </div>
